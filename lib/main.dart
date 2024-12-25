@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:widget_basics/register_screen.dart';
+import 'about_screen.dart';
+import 'login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +13,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/login': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen(),
+      },
+      initialRoute: '/',
+      // home: SplashScreen(),
     );
   }
 }
@@ -112,6 +122,17 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.login),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    )); // Menutup Drawer
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.info),
               title: Text('About'),
               onTap: () {
@@ -188,42 +209,6 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.green,
           ),
         ],
-      ),
-    );
-  }
-}
-
-// Halaman About dengan tombol kembali
-class AboutPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('About Page'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'This is the About Page.',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.blueAccent,
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Kembali ke halaman sebelumnya
-                Navigator.pop(context);
-              },
-              child: Text('Back to Home'),
-            ),
-          ],
-        ),
       ),
     );
   }
